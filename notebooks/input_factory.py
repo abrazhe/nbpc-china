@@ -26,7 +26,7 @@ import numpy
 ###############
 # Input Currents
 ###############
-def get_step_current(t_start, t_end, unit_time, amplitude, append_zero=True):
+def get_step_current(t_start, t_end, unit_time, amplitude, append_zero=True,Nneurons=1):
 
     """Creates a step current. If t_start == t_end, then a single
     entry in the values array is set to amplitude.
@@ -50,8 +50,8 @@ def get_step_current(t_start, t_end, unit_time, amplitude, append_zero=True):
     tmp_size = 1 + t_end  # +1 for t=0
     if append_zero:
         tmp_size += 1
-    tmp = np.zeros((tmp_size, 1)) * b2.amp
-    tmp[t_start: t_end + 1, 0] = amplitude
+    tmp = np.zeros((tmp_size, Nneurons)) * b2.amp
+    tmp[t_start: t_end + 1, :] = amplitude
     curr = b2.TimedArray(tmp, dt=1. * unit_time)
     return curr
 
